@@ -61,3 +61,101 @@ spec:
         value: "crossplane-eks--my-cluster-name-my-pod-name"
   providerConfigRef:
     name: aws-provider
+---
+# Source: crossplane-iam-pod-role/templates/iam-policy.yaml
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Policy
+metadata:
+  name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument1"
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    description:  "crossplane-eks--my-cluster-name-my-pod-name-policydocument1"
+    document: "{\"Id\":\"crossplane-eks-policydocument1\",\"Statement\":[{\"Action\":[\"iam:CreateServiceLinkedRole\"],\"Condition\":{\"StringEquals\":{\"iam:AWSServiceName\":[\"elasticloadbalancing.amazonaws.com\"]}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}"
+    name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument1"
+    tags:
+      - key: Component
+        value: "k8s"
+      - key: Environment
+        value: "dev"
+      - key: ManageBy
+        value: "crossplane-my-cluster-name"
+      - key: Name
+        value: "crossplane-k8s-my-pod"
+      - key: Team
+        value: "RND"
+      - key: Type
+        value: "Platform"
+      - key: crossplane-kind
+        value: policy.iam.aws.crossplane.io
+      - key: crossplane-name
+        value: "crossplane-eks--my-cluster-name-my-pod-name-policydocument1"
+  providerConfigRef:
+    name: aws-provider
+---
+# Source: crossplane-iam-pod-role/templates/iam-policy.yaml
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Policy
+metadata:
+  name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument2"
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    description:  "crossplane-eks--my-cluster-name-my-pod-name-policydocument2"
+    document: "{\"Id\":\"crossplane-eks-policydocument2\",\"Statement\":[{\"Action\":[\"iam:CreateServiceLinkedRole\"],\"Condition\":{\"StringEquals\":{\"iam:AWSServiceName\":[\"elasticloadbalancing.amazonaws.com\"]}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}"
+    name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument2"
+    tags:
+      - key: Component
+        value: "k8s"
+      - key: Environment
+        value: "dev"
+      - key: ManageBy
+        value: "crossplane-my-cluster-name"
+      - key: Name
+        value: "crossplane-k8s-my-pod"
+      - key: Team
+        value: "RND"
+      - key: Type
+        value: "Platform"
+      - key: crossplane-kind
+        value: policy.iam.aws.crossplane.io
+      - key: crossplane-name
+        value: "crossplane-eks--my-cluster-name-my-pod-name-policydocument2"
+  providerConfigRef:
+    name: aws-provider
+---
+# Source: crossplane-iam-pod-role/templates/iam-policy-attachment.yaml
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: "my-pod-name-role-policy-attach-policydocument1"
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  forProvider:
+    policyArnRef:
+      name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument1"
+    roleNameRef:
+      name: "crossplane-eks--my-cluster-name-my-pod-name"
+  providerConfigRef:
+    name: aws-provider
+---
+# Source: crossplane-iam-pod-role/templates/iam-policy-attachment.yaml
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: "my-pod-name-role-policy-attach-policydocument2"
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  forProvider:
+    policyArnRef:
+      name: "crossplane-eks--my-cluster-name-my-pod-name-policydocument2"
+    roleNameRef:
+      name: "crossplane-eks--my-cluster-name-my-pod-name"
+  providerConfigRef:
+    name: aws-provider
